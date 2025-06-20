@@ -2,14 +2,13 @@ import asyncio
 import os
 from dotenv import load_dotenv
 
-from aiogram import Bot, Dispatcher, Router
+from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
-from aiogram.types import Message
 
-from bot.middlewares.add_user import AddUserMiddleware
-from bot.handlers import start
+from bot.middlewares import AddUserMiddleware, AccessMiddleware
+from bot.handlers import start, admin
 
-load_dotenv()  # Загружаем переменные из .env
+load_dotenv()
 
 
 async def main():
@@ -20,11 +19,10 @@ async def main():
     bot = Bot(token=token, default=DefaultBotProperties(parse_mode='HTML'))
     dp = Dispatcher()
 
-    # Регистрируем middleware для сообщений и колбеков
     dp.message.middleware(AddUserMiddleware())
-    dp.callback_query.middleware(AddUserMiddleware())
+    dp.message.middleware(AccessMiddleware())
 
-    dp.include_routers(start.router)
+    dp.include_routers(start.router, admin.router)
 
     print("[DEBUG] Бот запущен!")
     await dp.start_polling(bot)

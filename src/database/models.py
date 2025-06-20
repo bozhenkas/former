@@ -45,7 +45,7 @@ class FormResponseModel(BaseModel):
 
 # CRUD and index setup
 async def setup_indexes(db: AsyncIOMotorDatabase):
-    await db.users.create_index("telegram_id", unique=True)
+    await db.users.create_index("tg_id", unique=True)
     await db.google_accounts.create_index("user_tg_id")
     await db.integrations.create_index([("user_tg_id", 1), ("form_id", 1)])
     await db.form_responses.create_index("integration_id")

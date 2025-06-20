@@ -1,13 +1,11 @@
-"""обработчик команды /start, регистрация новых пользователей и навигация по главному меню"""
-
 import yaml
 import os
 
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
-from aiogram.fsm.context import FSMContext
 
-from bot import get_access_kb, get_start_kb, get_back_kb
+from database import user_in_base, get_user_access_by_tg_id
+from bot.keyboards import get_access_kb, get_back_kb, get_menu_kb
 
 # создание роутера
 router = Router()
@@ -20,9 +18,22 @@ with open('messages.yaml', 'r', encoding='utf-8') as file:
 @router.message(F.text == '↩️ Назад')
 @router.message(Command('start'))
 async def cmd_start(message: types.Message):
-    await message.answer(MESSAGES['start']['hello'], reply_markup=await get_access_kb())
+    if not await user_in_base(message.from_user.id):
+        await message.answer(MESSAGES['start']['hello'], reply_markup=await get_access_kb())
+    else:
+        access = await get_user_access_by_tg_id(message.from_user.id)
+        if access == 'allowed':
+            # menu_kb = await get_menu_kb()  # если есть функция
+            await message.answer(MESSAGES['start']['menu'], reply_markup=await get_menu_kb())
+        elif access == 'undefined':
+            await message.answer(MESSAGES['start']['hello'], reply_markup=await get_access_kb())
+        elif access == 'denied':
+            await message.answer(MESSAGES['access']['denied'], reply_markup=types.ReplyKeyboardRemove())
+        elif access == 'requested':
+            await message.answer(MESSAGES['access']['requested'])
 
 
 @router.message(F.text == 'ℹ️ Информация')
+@router.message(Command('info'))
 async def msg_info(message: types.Message):
     await message.answer(MESSAGES['start']['info'], reply_markup=await get_back_kb())

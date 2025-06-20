@@ -3,16 +3,16 @@
 from aiogram import types
 
 
-async def get_start_kb():
+async def get_menu_kb():
     k = [
-        [types.KeyboardButton(text='Начать регистрацию'), ]
+        [types.KeyboardButton(text='Кнопки'), types.KeyboardButton(text='Будущего')],
+        [types.KeyboardButton(text='Меню')]
     ]
     keyboard = types.ReplyKeyboardMarkup(
         keyboard=k,
         resize_keyboard=True,
-        input_field_placeholder="Нажмите на кнопку",
+        input_field_placeholder="welcome",
         is_persistent=False,
-        one_time_keyboard=True
     )
     return keyboard
 

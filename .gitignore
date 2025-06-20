@@ -1,0 +1,8 @@
+.env
+.pycache
+.gitkeep
+.wt
+.iml
+.data
+.xml
+.lock

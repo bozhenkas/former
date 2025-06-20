@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    container_name: former_api
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./volumes/logs:/app/logs
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+  bot:
+    build: .
+    container_name: former_bot
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./volumes/logs:/app/logs
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:6
+    container_name: former_mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: former
+    volumes:
+      - ./volumes/mongo:/data/db
+    ports:
+      - "27017:27017"
+volumes:
+  mongo:
+  logs: 

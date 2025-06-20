@@ -1,5 +1,62 @@
+# IDE & Environment
+.idea/
+.vscode/
 .env
-.pycache
+.env.*
+.venv/
+venv/
+env/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Build, distribution and packaging
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+*.manifest
+*.spec
+
+# Test & Coverage Reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Logs & Data Volumes
+logs/
+volumes/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Other
+.DS_Store
+.Python
+.ipynb_checkpoints
+.python-version
+.mypy_cache/
+.dmypy.json
+
 .gitkeep
 .wt
 .iml

@@ -3,6 +3,7 @@ import os
 
 from aiogram import Router, types, F
 from aiogram.filters.command import Command
+from aiogram.fsm.context import FSMContext
 
 from database import user_in_base, get_user_access_by_tg_id
 from bot.keyboards import get_access_kb, get_back_kb, get_menu_kb
@@ -17,7 +18,8 @@ with open('messages.yaml', 'r', encoding='utf-8') as file:
 
 @router.message(F.text == '↩️ Назад')
 @router.message(Command('start'))
-async def cmd_start(message: types.Message):
+async def cmd_start(message: types.Message, state: FSMContext):
+    await state.clear()
     if not await user_in_base(message.from_user.id):
         await message.answer(MESSAGES['start']['hello'], reply_markup=await get_access_kb())
     else:

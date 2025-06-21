@@ -1,4 +1,3 @@
-# IDE & Environment
 .idea/
 .vscode/
 .env
@@ -7,13 +6,11 @@
 venv/
 env/
 
-# Python cache and compiled files
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 
-# Build, distribution and packaging
 build/
 dist/
 downloads/
@@ -30,7 +27,6 @@ var/
 *.manifest
 *.spec
 
-# Test & Coverage Reports
 htmlcov/
 .tox/
 .nox/
@@ -43,13 +39,11 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
-# Logs & Data Volumes
 logs/
 volumes/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Other
 .DS_Store
 .Python
 .ipynb_checkpoints

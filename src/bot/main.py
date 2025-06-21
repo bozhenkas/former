@@ -6,7 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 
 from bot.middlewares import AddUserMiddleware, AccessMiddleware
-from bot.handlers import start, admin
+from bot.handlers import start, admin, access_request
 
 load_dotenv()
 
@@ -22,7 +22,7 @@ async def main():
     dp.message.middleware(AddUserMiddleware())
     dp.message.middleware(AccessMiddleware())
 
-    dp.include_routers(start.router, admin.router)
+    dp.include_routers(start.router, admin.router, access_request.router)
 
     print("[DEBUG] Бот запущен!")
     await dp.start_polling(bot)

@@ -1,7 +1,13 @@
 from fastapi import FastAPI
+from src.app.api.v1.endpoints import webhook
+from src.app.core.logging import setup_logging
 
-app = FastAPI()
- 
+setup_logging()
+
+app = FastAPI(title="Yandex Forms Webhook Handler")
+
+app.include_router(webhook.router, prefix="/api/v1/yandex", tags=["Yandex.Forms"])
+
 @app.get("/")
-async def root():
-    return {"message": "Hello from Former API!"} 
+async def read_root():
+    return {"message": "Webhook handler is running"} 

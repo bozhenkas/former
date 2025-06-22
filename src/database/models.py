@@ -3,6 +3,7 @@ from datetime import datetime
 from motor.motor_asyncio import AsyncIOMotorDatabase
 from pydantic import BaseModel, Field
 from bson import ObjectId
+from uuid import uuid4
 
 # Pydantic models
 class UserModel(BaseModel):
@@ -24,6 +25,7 @@ class GoogleAccountModel(BaseModel):
 class IntegrationModel(BaseModel):
     user_tg_id: int
     integration_name: str
+    webhook_token: str = Field(default_factory=lambda: str(uuid4()))
     form_id: str
     google_sheet_id: str
     google_account_id: ObjectId

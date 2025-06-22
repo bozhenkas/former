@@ -77,3 +77,31 @@ async def change_access(tg_id: int, action: str) -> bool:
         {"$set": {"access": new_status, "updated_at": datetime.utcnow()}}
     )
     return result.modified_count > 0
+
+
+async def get_integration_by_webhook_token(token: str) -> dict | None:
+    return await db.integrations.find_one({"webhook_token": token})
+
+
+async def create_integration(integration_data: dict) -> any:
+    result = await db.integrations.insert_one(integration_data)
+    return result.inserted_id
+
+
+async def get_integrations_by_user(user_tg_id: int) -> list[dict]:
+    return await db.integrations.find({"user_tg_id": user_tg_id}).to_list(length=100)
+
+
+async def delete_integration(integration_id: str, user_tg_id: int):
+    await db.integrations.delete_one({"_id": integration_id, "user_tg_id": user_tg_id})
+
+
+async def log_form_response(integration_id: any, form_id: str, status: str, response_data: dict, error_message: str = None):
+    await db.form_responses.insert_one({
+        "integration_id": integration_id,
+        "form_id": form_id,
+        "received_at": datetime.utcnow(),
+        "status": status,
+        "error_message": error_message,
+        "response_data": response_data
+    })

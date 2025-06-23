@@ -12,7 +12,8 @@ from bot.keyboards import get_access_kb, get_back_kb, get_menu_kb
 router = Router()
 
 # загрузка сообщений
-with open('messages.yaml', 'r', encoding='utf-8') as file:
+messages_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'messages.yaml')
+with open(messages_path, 'r', encoding='utf-8') as file:
     MESSAGES = yaml.safe_load(file)
 
 

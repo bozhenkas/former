@@ -2,13 +2,24 @@ version: '3.8'
 
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:6.0
     container_name: former_mongo
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
     restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: former_app
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    depends_on:
+      - mongo
 
   bot:
     build:
@@ -19,25 +30,7 @@ services:
       - .env
     depends_on:
       - mongo
-    volumes:
-      - ./src:/app/src
-    restart: unless-stopped
-
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: former_app
-    env_file:
-      - .env
-    ports:
-      - "8000:8000"
-    depends_on:
-      - mongo
-    volumes:
-      - ./src:/app/src
     restart: unless-stopped
 
 volumes:
   mongo_data:
-  logs: 

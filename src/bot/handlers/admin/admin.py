@@ -9,13 +9,12 @@ from aiogram.fsm.context import FSMContext
 
 from bot.keyboards import get_access_kb, get_access_provision_kb, get_menu_kb, get_admin_kb, get_back_kb
 from database import *
-from bot.states import AdminPanel
 
 load_dotenv()
 
 router = Router()
 
-messages_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'bot', 'messages.yaml')
+messages_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'messages.yaml')
 with open(messages_path, 'r', encoding='utf-8') as file:
     MESSAGES = yaml.safe_load(file)
 

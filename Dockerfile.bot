@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+WORKDIR /app/src
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./src /app/src
+COPY .env /app/src/.env
+
+# Создаем папку bot/bot и копируем туда messages.yaml для совместимости с кодом
+RUN mkdir -p /app/src/bot/bot && cp /app/src/bot/messages.yaml /app/src/bot/bot/messages.yaml
+
+ENV PYTHONPATH=/app/src
+
+CMD ["python", "-m", "bot.main"] 

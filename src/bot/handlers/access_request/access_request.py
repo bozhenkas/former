@@ -13,7 +13,7 @@ load_dotenv()
 
 router = Router()
 
-messages_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'messages.yaml')
+messages_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'bot', 'messages.yaml')
 with open(messages_path, 'r', encoding='utf-8') as file:
     MESSAGES = yaml.safe_load(file)
 

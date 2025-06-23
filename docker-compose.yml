@@ -20,6 +20,8 @@ services:
     restart: unless-stopped
     depends_on:
       - mongo
+    volumes:
+      - ./src:/app/src
 
   bot:
     build:
@@ -30,6 +32,8 @@ services:
       - .env
     depends_on:
       - mongo
+    volumes:
+      - ./src:/app/src
     restart: unless-stopped
 
 volumes:

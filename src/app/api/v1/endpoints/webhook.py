@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
-from src.database.db_methods import get_integration_by_webhook_token, log_form_response
+from database.db_methods import get_integration_by_webhook_token, log_form_response
 import logging
 
 router = APIRouter()

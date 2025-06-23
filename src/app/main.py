@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from src.app.api.v1.endpoints import webhook
-from src.app.core.logging import setup_logging
+from app.api.v1.endpoints import webhook
+from app.core.logging import setup_logging
 
 setup_logging()
 
